@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Darren Davidse - Front-End Web Developer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+  :root{
+    --paper: #F7F6F2;
+    --ink: #1C1C1E;
+    --ink-soft: #52524F;
+    --rule: #D9D5C9;
+    --navy: #1F3864;
+    --navy-soft: #4C6491;
+    --field-bg: #FFFFFF;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ -webkit-font-smoothing: antialiased; }
+
+  body{
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .sheet{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 64px 28px 96px;
+  }
+
+  h1, h2{
+    font-family: 'Newsreader', serif;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  /* ---------- header ---------- */
+
+  header{
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  header h1{
+    font-size: 2.6rem;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  header p.role{
+    margin: 10px 0 0;
+    font-size: 1.05rem;
+    color: var(--navy);
+    font-weight: 500;
+  }
+
+  header p.intro{
+    margin: 22px 0 0;
+    max-width: 58ch;
+    color: var(--ink-soft);
+  }
+
+  .meta-row{
+    margin-top: 26px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 22px;
+    font-size: 0.92rem;
+  }
+
+  .meta-row a, .meta-row span{
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .meta-row a:hover{
+    color: var(--navy);
+    border-bottom-color: var(--navy-soft);
+  }
+
+  /* ---------- section labels ---------- */
+
+  section{ margin-top: 56px; }
+
+  section > h2{
+    font-size: 1.5rem;
+  }
+
+  section > p.section-note{
+    margin: 8px 0 0;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    max-width: 56ch;
+  }
+
+  /* ---------- skills as a field row, not a badge grid ---------- */
+
+  .skill-group{
+    margin-top: 28px;
+    display: flex;
+    gap: 18px 28px;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+
+  .skill-group .label{
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    min-width: 88px;
+  }
+
+  .skill-group ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    flex: 1;
+  }
+
+  .skill-group li{
+    font-size: 0.95rem;
+  }
+
+  .skill-group li:not(:last-child)::after{
+    content: "";
+  }
+
+  /* ---------- projects ---------- */
+
+  .projects{
+    margin-top: 28px;
+  }
+
+  .project{
+    padding: 26px 0;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 8px 32px;
+  }
+
+  .project:last-child{
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .project h3{
+    grid-column: 1;
+    font-family: 'Newsreader', serif;
+    font-weight: 500;
+    font-size: 1.25rem;
+    margin: 0 0 6px;
+  }
+
+  .project p{
+    grid-column: 1;
+    margin: 0;
+    color: var(--ink-soft);
+    max-width: 52ch;
+  }
+
+  .project .side{
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .project .tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .project .tags span{
+    font-size: 0.78rem;
+    color: var(--navy);
+    background: var(--field-bg);
+    border: 1px solid var(--rule);
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+
+  .project .link{
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #FFFFFF;
+    background: var(--navy);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    border: 1px solid var(--navy);
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .project .link:hover{
+    background: var(--navy-soft);
+    border-color: var(--navy-soft);
+  }
+
+  .project .link.muted{
+    color: var(--ink-soft);
+    background: transparent;
+    border: 1px solid var(--rule);
+  }
+
+  .project .link.muted:hover{
+    background: transparent;
+    border-color: var(--ink-soft);
+  }
+
+  @media (max-width: 620px){
+    .project{
+      grid-template-columns: 1fr;
+    }
+    .project .side{
+      grid-column: 1;
+      grid-row: auto;
+      margin-top: 14px;
+    }
+  }
+
+  /* ---------- experience (compact) ---------- */
+
+  .role-line{
+    padding: 14px 0;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .role-line:last-child{
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .role-line .who{
+    font-weight: 500;
+  }
+
+  .role-line .who span{
+    font-weight: 400;
+    color: var(--ink-soft);
+  }
+
+  .role-line .when{
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+
+  /* ---------- footer ---------- */
+
+  footer{
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+  }
+
+  footer a{
+    color: var(--navy);
+  }
+</style>
+</head>
+<body>
+
+  <div class="sheet">
+
+    <header>
+      <h1>Darren Davidse</h1>
+      <p class="role">Front-End Web Developer</p>
+      <p class="intro">
+        I build the front end of customer-facing insurance journeys &nbsp; quote forms, self-serve
+        portals, agent tooling &nbsp; mostly in HTML, CSS and JavaScript over a Razor / ASP.NET Core
+        backend. This page collects a few examples of that work.
+      </p>
+      <div class="meta-row">
+        <a href="mailto:darren.davidse@gmail.com">darren.davidse@gmail.com</a>
+        <span>07760 666794</span>
+        <span>Swindon, UK</span>
+        <!-- <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="#" target="_blank" rel="noopener">GitHub</a> -->
+      </div>
+    </header>
+
+    <section>
+      <h2>Skills</h2>
+      <div class="skill-group">
+        <span class="label">Front-end</span>
+        <ul>
+          <li>HTML5</li><li>CSS3</li><li>JavaScript (ES6+)</li><li>jQuery</li>
+          <li>Razor / CSHTML</li><li>Bootstrap 3 &amp; 5</li><li>Responsive layout</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <span class="label">Supporting</span>
+        <ul>
+          <li>ASP.NET Core MVC</li><li>C#</li><li>Entity Framework Core</li>
+          <li>SQL Server</li><li>Azure App Service</li><li>Git</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Projects</h2>
+      <!-- <p class="section-note">
+        Edit the <code>projects</code> array near the top of the script at the bottom of this
+        file to add, remove or relink entries — each one just needs a title, description, tags
+        and a URL (or leave the URL blank to show "details on request").
+      </p> -->
+      <div class="projects" id="project-list"><!-- populated by script --></div>
+    </section>
+
+    <section>
+      <h2>Experience</h2>
+      <div id="role-list"><!-- populated by script --></div>
+    </section>
+
+    <footer>
+      Built and maintained by hand — no framework, just this file.
+      <a href="mailto:darren.davidse@gmail.com">Get in touch</a>.
+    </footer>
+
+  </div>
+
+  <script>
+    // ---------------------------------------------------------------
+    // Edit this array to add, remove or update project links.
+    // Leave "url" as an empty string to show a "details on request"
+    // label instead of a link — useful for brand sites you can't link
+    // to publicly.
+    // ---------------------------------------------------------------
+    const projects = [
+      {
+        title: "Multi-Brand Insurance Quote & Buy Journey",
+        description: "A multi-step motorcycle and car insurance quote journey supporting several brands from one shared front end, with per-brand theming, A/B-tested step variants and client-side validation across a long, form-heavy flow.",
+        tags: ["HTML5", "CSS3", "JavaScript", "Razor", "ASP.NET Core", "Bootstrap"],
+        url: "https://quote.motorcycledirect.co.uk/quote/you"
+      },
+      {
+        title: "Multi-Brand Self-Serve Customer Portal",
+        description: "A responsive customer-facing portal for viewing policy documents and making Mid-Term Adjustments, including multi-bike and multi-rider changes, built to work cleanly across desktop and mobile.",
+        tags: ["HTML5", "CSS3", "JavaScript", "Razor", "ASP.NET Core", "Bootstrap"],
+        url: "https://selfserve.motorcycledirect.co.uk/"
+      },
+      {
+        title: "Multi-Brand Insurance Brochureware sites",
+        description: "Several static marketing sites for a UK insurance broker, covering products, help content and policy information, with entry points through to the separate quote-and-buy journey and customer portal.",
+        tags: ["HTML5", "CSS3", "JavaScript", "PHP", "Bootstrap"],
+        url: "https://www.motorcycledirect.co.uk"
+      },
+      {
+        title: "Internal Agent Dashboard",
+        description: "A back-office dashboard for contact-centre agents, built around a set of web forms for cancellations, auto-lapse, MTA and renewal changes, plus a blocklist lookup tool and an in-chat payments feature.",
+        tags: ["HTML5", "CSS3", "JavaScript", "Razor", "ASP.NET Core", "Bootstrap"],
+        url: ""
+      }
+    ];
+
+    // ---------------------------------------------------------------
+    // Edit this array to update your work history line-up.
+    // ---------------------------------------------------------------
+    const roles = [
+      { title: "Web Developer", company: "Europa Group Ltd", when: "Jan 2007 – Present" },
+      { title: "Web Developer", company: "A-Plan Insurance", when: "2003 – 2006" }
+    ];
+
+    function renderProjects(){
+      const list = document.getElementById("project-list");
+      list.innerHTML = projects.map(p => {
+        const tags = p.tags.map(t => `<span>${t}</span>`).join("");
+        const link = p.url
+          ? `<a class="link" href="${p.url}" target="_blank" rel="noopener">View live site</a>`
+          : `<span class="link muted">Details on request</span>`;
+        return `
+          <div class="project">
+            <h3>${p.title}</h3>
+            <p>${p.description}</p>
+            <div class="side">
+              <div class="tags">${tags}</div>
+              ${link}
+            </div>
+          </div>`;
+      }).join("");
+    }
+
+    function renderRoles(){
+      const list = document.getElementById("role-list");
+      list.innerHTML = roles.map(r => `
+        <div class="role-line">
+          <div class="who">${r.title} <span>— ${r.company}</span></div>
+          <div class="when">${r.when}</div>
+        </div>`).join("");
+    }
+
+    renderProjects();
+    renderRoles();
+  </script>
+
+</body>
+</html>
