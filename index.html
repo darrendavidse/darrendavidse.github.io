@@ -3,18 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Darren Davidse - Front-End Web Developer</title>
+<title>Darren Davidse — Front-End Web Developer</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
 
   :root{
     --paper: #F7F6F2;
+    --canvas: #ECE9E1;
     --ink: #1C1C1E;
     --ink-soft: #52524F;
     --rule: #D9D5C9;
     --navy: #1F3864;
     --navy-soft: #4C6491;
     --field-bg: #FFFFFF;
+    --field-tint: #EEF1F6;
+    --accent: #2F6B4F;
+    --accent-soft: #5C8A72;
   }
 
   *{ box-sizing: border-box; }
@@ -23,17 +27,27 @@
 
   body{
     margin: 0;
-    background: var(--paper);
+    background: var(--canvas);
+    background-image: radial-gradient(var(--rule) 1px, transparent 1px);
+    background-size: 26px 26px;
     color: var(--ink);
     font-family: 'IBM Plex Sans', sans-serif;
     font-size: 16px;
     line-height: 1.6;
+    padding: 40px 16px;
   }
 
   .sheet{
     max-width: 760px;
     margin: 0 auto;
-    padding: 64px 28px 96px;
+    padding: 56px 48px 88px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+  }
+
+  @media (max-width: 700px){
+    body{ padding: 0; background-image: none; }
+    .sheet{ padding: 44px 22px 64px; border: none; }
   }
 
   h1, h2{
@@ -47,6 +61,10 @@
   header{
     padding-bottom: 32px;
     border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 40px;
+    align-items: start;
   }
 
   header h1{
@@ -64,27 +82,61 @@
 
   header p.intro{
     margin: 22px 0 0;
-    max-width: 58ch;
+    max-width: 52ch;
     color: var(--ink-soft);
   }
 
-  .meta-row{
-    margin-top: 26px;
+  .docket{
+    grid-column: 2;
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--navy);
+    background: var(--field-tint);
+    padding: 16px 18px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 6px 22px;
-    font-size: 0.92rem;
+    flex-direction: column;
+    gap: 14px;
   }
 
-  .meta-row a, .meta-row span{
+  .docket .field{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .docket .field .fl{
+    font-size: 0.72rem;
     color: var(--ink-soft);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
   }
 
-  .meta-row a:hover{
+  .docket .field .fv{
+    font-size: 0.95rem;
+    color: var(--ink);
+  }
+
+  .docket .field a.fv{
     color: var(--navy);
-    border-bottom-color: var(--navy-soft);
+    text-decoration: none;
+  }
+
+  .docket .field a.fv:hover{
+    text-decoration: underline;
+  }
+
+  @media (max-width: 700px){
+    header{
+      grid-template-columns: 1fr;
+    }
+    .docket{
+      grid-column: 1;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 16px 26px;
+      border-left: 1px solid var(--rule);
+      border-top: 4px solid var(--navy);
+    }
+    .docket .field{
+      flex: 1 1 40%;
+    }
   }
 
   /* ---------- section labels ---------- */
@@ -92,7 +144,10 @@
   section{ margin-top: 56px; }
 
   section > h2{
+    display: inline-block;
     font-size: 1.5rem;
+    padding-bottom: 6px;
+    border-bottom: 3px solid var(--accent);
   }
 
   section > p.section-note{
@@ -190,6 +245,12 @@
     border-radius: 3px;
   }
 
+  .project .tags span.be{
+    color: #FFFFFF;
+    background: var(--navy);
+    border-color: var(--navy);
+  }
+
   .project .link{
     display: inline-block;
     font-size: 0.85rem;
@@ -232,9 +293,25 @@
 
   /* ---------- experience (compact) ---------- */
 
+  .timeline{
+    position: relative;
+    margin-top: 28px;
+    padding-left: 24px;
+  }
+
+  .timeline::before{
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: var(--rule);
+  }
+
   .role-line{
-    padding: 14px 0;
-    border-top: 1px solid var(--rule);
+    position: relative;
+    padding: 10px 0 22px;
     display: flex;
     justify-content: space-between;
     gap: 20px;
@@ -242,7 +319,25 @@
   }
 
   .role-line:last-child{
-    border-bottom: 1px solid var(--rule);
+    padding-bottom: 2px;
+  }
+
+  .role-line::before{
+    content: "";
+    position: absolute;
+    left: -24px;
+    top: 6px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    background: var(--paper);
+    border: 2px solid var(--navy);
+  }
+
+  .role-line.current::before{
+    background: var(--accent);
+    border-color: var(--accent);
   }
 
   .role-line .who{
@@ -279,19 +374,32 @@
   <div class="sheet">
 
     <header>
-      <h1>Darren Davidse</h1>
-      <p class="role">Front-End Web Developer</p>
-      <p class="intro">
-        I build the front end of customer-facing insurance journeys &nbsp; quote forms, self-serve
-        portals, agent tooling &nbsp; mostly in HTML, CSS and JavaScript over a Razor / ASP.NET Core
-        backend. This page collects a few examples of that work.
-      </p>
-      <div class="meta-row">
-        <a href="mailto:darren.davidse@gmail.com">darren.davidse@gmail.com</a>
-        <span>07760 666794</span>
-        <span>Swindon, UK</span>
-        <!-- <a href="#" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="#" target="_blank" rel="noopener">GitHub</a> -->
+      <div>
+        <h1>Darren Davidse</h1>
+        <p class="role">Front-End Web Developer</p>
+        <p class="intro">
+          I build the front end of customer-facing insurance journeys &dash; quote forms, self-serve
+          portals, agent tooling &dash; mostly in HTML, CSS and JavaScript over a Razor / ASP.NET Core
+          backend. This page collects a few examples of that work.
+        </p>
+      </div>
+      <div class="docket">
+        <div class="field">
+          <span class="fl">Email</span>
+          <a class="fv" href="mailto:darren.davidse@gmail.com">darren.davidse@gmail.com</a>
+        </div>
+        <div class="field">
+          <span class="fl">Phone</span>
+          <span class="fv">07760 666794</span>
+        </div>
+        <div class="field">
+          <span class="fl">Location</span>
+          <span class="fv">Swindon, UK</span>
+        </div>
+        <!-- <div class="field">
+          <span class="fl">LinkedIn</span>
+          <a class="fv" href="#" target="_blank" rel="noopener">linkedin.com/in/...</a>
+        </div>-->
       </div>
     </header>
 
@@ -315,72 +423,61 @@
 
     <section>
       <h2>Projects</h2>
-      <!-- <p class="section-note">
-        Edit the <code>projects</code> array near the top of the script at the bottom of this
-        file to add, remove or relink entries — each one just needs a title, description, tags
-        and a URL (or leave the URL blank to show "details on request").
-      </p> -->
       <div class="projects" id="project-list"><!-- populated by script --></div>
     </section>
 
     <section>
       <h2>Experience</h2>
-      <div id="role-list"><!-- populated by script --></div>
+      <div id="role-list" class="timeline"><!-- populated by script --></div>
     </section>
 
     <footer>
-      Built and maintained by hand — no framework, just this file.
+      Built and maintained by hand &dash; no framework, just this file.
       <a href="mailto:darren.davidse@gmail.com">Get in touch</a>.
     </footer>
 
   </div>
 
   <script>
-    // ---------------------------------------------------------------
-    // Edit this array to add, remove or update project links.
-    // Leave "url" as an empty string to show a "details on request"
-    // label instead of a link — useful for brand sites you can't link
-    // to publicly.
-    // ---------------------------------------------------------------
+    
     const projects = [
       {
         title: "Multi-Brand Insurance Quote & Buy Journey",
-        description: "A multi-step motorcycle and car insurance quote journey supporting several brands from one shared front end, with per-brand theming, A/B-tested step variants and client-side validation across a long, form-heavy flow.",
+        description: "A multi&dash;step motorcycle and car insurance quote journey supporting several brands from one shared front end, with per&dash;brand theming, A/B-tested step variants and client-side validation across a long, form-heavy flow.",
         tags: ["HTML5", "CSS3", "JavaScript", "Razor", "ASP.NET Core", "Bootstrap"],
         url: "https://quote.motorcycledirect.co.uk/quote/you"
       },
       {
         title: "Multi-Brand Self-Serve Customer Portal",
-        description: "A responsive customer-facing portal for viewing policy documents and making Mid-Term Adjustments, including multi-bike and multi-rider changes, built to work cleanly across desktop and mobile.",
+        description: "A responsive customer&dash;facing portal for viewing policy documents and making Mid&dash;Term Adjustments, including multi&dash;bike and multi&dash;rider changes, built to work cleanly across desktop and mobile.",
         tags: ["HTML5", "CSS3", "JavaScript", "Razor", "ASP.NET Core", "Bootstrap"],
         url: "https://selfserve.motorcycledirect.co.uk/"
       },
       {
-        title: "Multi-Brand Insurance Brochureware sites",
-        description: "Several static marketing sites for a UK insurance broker, covering products, help content and policy information, with entry points through to the separate quote-and-buy journey and customer portal.",
+        title: "Multi&dash;Brand Insurance Brochureware sites",
+        description: "Several static marketing sites for a UK insurance broker, covering products, help content and policy information, with entry points through to the separate quote&dash;and&dash;buy journey and customer portal.",
         tags: ["HTML5", "CSS3", "JavaScript", "PHP", "Bootstrap"],
         url: "https://www.motorcycledirect.co.uk"
       },
       {
         title: "Internal Agent Dashboard",
-        description: "A back-office dashboard for contact-centre agents, built around a set of web forms for cancellations, auto-lapse, MTA and renewal changes, plus a blocklist lookup tool and an in-chat payments feature.",
+        description: "A back&dash;office dashboard for contact-centre agents, built around a set of web forms for cancellations, auto&dash;lapse, MTA and renewal changes, plus a blocklist lookup tool and an in&dash;chat payments feature.",
         tags: ["HTML5", "CSS3", "JavaScript", "Razor", "ASP.NET Core", "Bootstrap"],
         url: ""
       }
     ];
 
-    // ---------------------------------------------------------------
-    // Edit this array to update your work history line-up.
-    // ---------------------------------------------------------------
     const roles = [
       { title: "Web Developer", company: "Europa Group Ltd", when: "Jan 2007 – Present" },
       { title: "Web Developer", company: "A-Plan Insurance", when: "2003 – 2006" }
     ];
 
+    const BACKEND_TAGS = ["ASP.NET Core", "C#", "Entity Framework Core", "SQL Server", "Azure App Service", "nginx", "Git"];
+
     function renderProjects(){
       const list = document.getElementById("project-list");
       list.innerHTML = projects.map(p => {
-        const tags = p.tags.map(t => `<span>${t}</span>`).join("");
+        const tags = p.tags.map(t => `<span class="${BACKEND_TAGS.includes(t) ? 'be' : ''}">${t}</span>`).join("");
         const link = p.url
           ? `<a class="link" href="${p.url}" target="_blank" rel="noopener">View live site</a>`
           : `<span class="link muted">Details on request</span>`;
@@ -399,7 +496,7 @@
     function renderRoles(){
       const list = document.getElementById("role-list");
       list.innerHTML = roles.map(r => `
-        <div class="role-line">
+        <div class="role-line${r.when.includes('Present') ? ' current' : ''}">
           <div class="who">${r.title} <span>— ${r.company}</span></div>
           <div class="when">${r.when}</div>
         </div>`).join("");
